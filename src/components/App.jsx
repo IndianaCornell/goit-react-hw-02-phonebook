@@ -1,16 +1,20 @@
-export const App = () => {
-  return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
-  );
-};
+import { GlobalStyle } from './GlobalStyle';
+import { Layout } from './Layout';
+import { Card } from './Card.styled';
+
+import { Component } from 'react';
+
+export class App extends Component {
+  state = {
+    contacts: [],
+    name: '',
+  };
+  render() {
+    return (
+      <Layout>
+        <Card></Card>
+        <GlobalStyle />
+      </Layout>
+    );
+  }
+}
