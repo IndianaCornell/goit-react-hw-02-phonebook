@@ -9,4 +9,5 @@ export const Card = styled.div`
   padding: 20px;
   background-color: rgba(0, 0, 0, 0.5);
   color: #fff;
+  gap: 10px;
 `;
