@@ -1,4 +1,6 @@
 import { Formik } from 'formik';
+import { nanoid } from 'nanoid';
+
 import {
   StyledForm,
   ErrorMess,
@@ -24,7 +26,7 @@ export const ContactForm = ({ onAdd }) => {
         }}
         validationSchema={SignupSchema}
         onSubmit={(values, actions) => {
-          onAdd(values);
+          onAdd({ ...values, id: nanoid() });
           actions.resetForm();
         }}
       >
