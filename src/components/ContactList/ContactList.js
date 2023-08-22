@@ -1,13 +1,14 @@
 import { nanoid } from 'nanoid';
+import { ItemsList, StyledItem } from './ContactList.styled';
 
 export const ContactList = ({ contacts }) => {
   return (
-    <ul>
+    <ItemsList>
       {contacts.map(contact => (
-        <li key={nanoid()}>
+        <StyledItem key={nanoid()}>
           {contact.name}: {contact.number}
-        </li>
+        </StyledItem>
       ))}
-    </ul>
+    </ItemsList>
   );
 };

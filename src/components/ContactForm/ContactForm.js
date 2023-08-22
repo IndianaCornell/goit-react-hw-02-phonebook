@@ -1,30 +1,53 @@
+import { Formik } from 'formik';
+import {
+  StyledForm,
+  ErrorMess,
+  StyledLabel,
+  FieldArea,
+  StyledButton,
+  ErrorP,
+} from './ContactForm.styled';
+import * as Yup from 'yup';
+
+const SignupSchema = Yup.object().shape({
+  name: Yup.string().required('* Name is required'),
+  number: Yup.number().required().positive().integer().min('5'),
+});
+
 export const ContactForm = ({ onAdd }) => {
   return (
     <>
-      <h3>Name</h3>
-      <input
-        type="text"
-        name="name"
-        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-        title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-        required
-      />
-      <h3>Number</h3>
-      <input
-        type="tel"
-        name="number"
-        pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-        title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-        required
-      />
-      <button
-        onClick={evt => {
-          let newContact = {};
-          console.log(evt);
+      <Formik
+        initialValues={{
+          name: '',
+          number: '',
+        }}
+        validationSchema={SignupSchema}
+        onSubmit={(values, actions) => {
+          onAdd(values);
+          actions.resetForm();
         }}
       >
-        Add contact
-      </button>
+        <StyledForm>
+          <StyledLabel>Name</StyledLabel>
+          <FieldArea name="name" placeholder="Enter a name" />
+          <ErrorMess
+            name="name"
+            component="div"
+            render={msg => <ErrorP>Name is required</ErrorP>}
+          />
+
+          <StyledLabel>Number</StyledLabel>
+          <FieldArea name="number" placeholder="Enter the number" />
+          <ErrorMess
+            name="number"
+            component="div"
+            render={msg => <ErrorP>Number must be a `number` type</ErrorP>}
+          />
+
+          <StyledButton type="submit">Add contact</StyledButton>
+        </StyledForm>
+      </Formik>
     </>
   );
 };

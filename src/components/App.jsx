@@ -17,8 +17,12 @@ export class App extends Component {
       { name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
+  };
+
+  findContacts = filtered => {
+    this.setState(prevState => ({
+      filter: filtered,
+    }));
   };
 
   addContact = newContact => {
@@ -28,14 +32,20 @@ export class App extends Component {
   };
 
   render() {
+    const { filter, contacts } = this.state;
+
+    const visibleContact = contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
+
     return (
       <Layout>
         <Card>
           <h2>Phonebook</h2>
-          <ContactForm />
+          <ContactForm onAdd={this.addContact} />
           <h2>Contacts</h2>
-          <Filter />
-          <ContactList contacts={this.state.contacts} onAdd={this.addContact} />
+          <Filter filteredItems={filter} onFind={this.findContacts} />
+          <ContactList contacts={visibleContact} />
         </Card>
         <GlobalStyle />
       </Layout>

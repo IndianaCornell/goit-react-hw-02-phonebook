@@ -1,8 +1,14 @@
-export const Filter = () => {
+import { FilterTitle, FilterInputStyled } from './Filter.styled';
+
+export const Filter = ({ filteredItems, onFind }) => {
   return (
     <>
-      <p>Find contacts by name</p>
-      <input />
+      <FilterTitle>Find contacts by name</FilterTitle>
+      <FilterInputStyled
+        type="text"
+        value={filteredItems}
+        onChange={evt => onFind(evt.target.value)}
+      />
     </>
   );
 };
